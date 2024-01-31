@@ -1,12 +1,11 @@
 import styled from "styled-components"
 
-import Image from "./src/components/layout/Image"
-import InputEmail from "./src/components/InputEmail"
-import InputPassword from "./src/components/InputPassword"
-import Subtitle from "./src/components/typography/Subtitle"
-import Button from "./src/components/Button"
-import Title from "./src/components/typography/Title"
-import Midtitle from "./src/components/typography/Midtitle"
+import Image from "../src/components/layout/Image"
+import Input from "../src/components/inputs/Input"
+import Subtitle from "../src/components/typography/Subtitle"
+import Button from "../src/components/inputs/Button"
+import Title from "../src/components/typography/Title"
+import Midtitle from "../src/components/typography/Midtitle"
 
 const FormContainer = styled.div`
   margin-top: 60px;
@@ -34,8 +33,8 @@ function Login () {
           <Midtitle>Entre em sua conta</Midtitle>
         </FormContainer>
         <Form>
-          <InputEmail placeHolder="Email" />
-          <InputPassword placeHolder="Senha" />
+          <Input label="Email" type="email" />
+          <Input label="Senha" type="password" />
           <Button>Entrar</Button>
         </Form>
         <Text>Não possui uma conta? <a href="#">Faça seu cadastro</a></Text>
