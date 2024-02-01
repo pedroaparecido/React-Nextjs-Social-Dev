@@ -10,7 +10,6 @@ import Midtitle from "../src/components/typography/Midtitle"
 
 const FormContainer = styled.div`
   margin-top: 60px;
-
 `
 
 const Form = styled.form`
@@ -24,23 +23,25 @@ const Text = styled.p`
   text-align: center;
 `
 
-function Login () {
-  
+function Signup () {
   return (
         <Image>
         <Title># Social Dev</Title>
         <Subtitle>Tudo que acontece no mundo dev, está aqui!</Subtitle>
         <FormContainer>
-          <Midtitle>Entre em sua conta</Midtitle>
+          <Midtitle>Crie sua conta</Midtitle>
         </FormContainer>
         <Form>
+          <Input label="Nome" />
+          <Input label="Sobrenome" />
+          <Input label="Usuário" />
           <Input label="Email" type="email" />
           <Input label="Senha" type="password" />
           <Button>Entrar</Button>
         </Form>
-        <Text>Não possui uma conta? <Link href="/signup">Faça seu cadastro</Link></Text>
+        <Text>Já possui uma conta? <Link href="/login">Faça seu Login</Link></Text>
         </Image>
   )
 }
 
-export default Login
+export default Signup
