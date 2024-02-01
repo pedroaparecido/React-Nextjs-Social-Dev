@@ -6,6 +6,10 @@ const StyledNavbar = styled.div`
     display: flex;
     align-itens: center;
     padding: 0 100px;
+
+    @meedia (max-width: 500px) {
+        padding: 0 20px;
+    }
 `
 
 const StyledLogo = styled.span`
