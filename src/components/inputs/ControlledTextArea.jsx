@@ -2,7 +2,7 @@ import { useController } from "react-hook-form"
 
 import TextArea from "./TextArea"
 
-const ControlledTextArea = ({ name, control, defaultValue, ...props }) => {
+const ControlledTextArea = ({ name, control, defaultValue = '', ...props }) => {
     const {
         field: { value, onChange }
     } = useController({ name, control, defaultValue })
