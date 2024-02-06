@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import moment from "moment"
 
 const PostContainer = styled.div`
     background-color: ${props => props.theme.white};
@@ -19,12 +20,12 @@ const ContainerText = styled.div`
     margin-top: 20px;
 `
 
-function Post() {
+function Post({ text, user, date }) {
     return(
         <PostContainer>
-            <StylesUsername>@username</StylesUsername>
-            <StyleDate>01 de Janeiro de 2000</StyleDate>
-            <ContainerText>Esse é um texto.</ContainerText>
+            <StylesUsername>@{user}</StylesUsername>
+            <StyleDate>{moment(date).format('LLL')}</StyleDate>
+            <ContainerText>{text}</ContainerText>
         </PostContainer>
     )
 }
