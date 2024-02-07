@@ -1,5 +1,8 @@
 import styled from "styled-components";
 import moment from "moment"
+import axios from "axios"
+import { useSWRConfig } from "swr"
+
 import Menu from "../navigation/Menu";
 
 const PostContainer = styled.div`
@@ -25,28 +28,46 @@ const ContainerMenu = styled.div`
     float: right;
 `
 
-function Post({ text, user, date }) {
-    const handleEdit = () => {
-        console.log('editar publicação')
+function Post({ text, user, date, isOwner, id }) {
+    const { mutate } = useSWRConfig()
+    const handleEdit = async () => {
+        const response = await axios.patch(`${process.env.NEXT_PUBLIC_API_URL}/api/post`, data)
+        if (response === 200) {
+
+        }
     }
 
-    const handleDelete = () => {
-        console.log('deletar publicação')
+    const handleDelete = async () => {
+        try {
+            const response = await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/api/post`, {
+                data: {
+                    id
+                }
+            })
+            if (response.status === 200)
+                mutate(`${process.env.NEXT_PUBLIC_API_URL}/api/post`)
+        } catch (err) {
+            console.error(err)
+        }
     }
 
     return(
         <PostContainer>
-            <ContainerMenu>
-                <Menu options={[{
-                    text: 'Editar publicação',
-                    onclick: handleEdit
-                },
-                {
-                    text: 'Deletar publicação',
-                    onclick: handleDelete
-                }
-                ]} />
-            </ContainerMenu>
+            {
+                isOwner && 
+                <ContainerMenu>
+                    <Menu options={[
+                    {
+                        text: 'Editar publicação',
+                        onClick: handleEdit
+                    },
+                    {
+                        text: 'Deletar publicação',
+                        onClick: handleDelete
+                    }
+                    ]} />
+                </ContainerMenu>
+            }
             <StylesUsername>@{user}</StylesUsername>
             <StyleDate>{moment(date).format('LLL')}</StyleDate>
             <ContainerText>{text}</ContainerText>
