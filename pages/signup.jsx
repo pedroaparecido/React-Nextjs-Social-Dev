@@ -31,6 +31,7 @@ const Text = styled.p`
 `
 
 function Signup () {
+  const [show, setShow] = useState(false)
   const router = useRouter()
   const { control, handleSubmit, formState: { errors }, setError } = useForm({
     resolver: joiResolver(signupSchema)
@@ -39,9 +40,10 @@ function Signup () {
   const handleForm = async (data) => {
     try {
       const { status } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/user/signup`, data)
-      if (status === 200) {
+      setShow(true)
+      if (status === 200) setTimeout(() => {{
         router.push('/')
-      }
+      }}, 5000)
     } catch (err) {
       if (err.response.data.code === 11000) {
         setError(err.response.data.duplicatedKey, {
@@ -64,7 +66,7 @@ function Signup () {
           <Input label="Usuário" name="user" control={control} />
           <Input label="Email" type="email" name="email" control={control} />
           <Input label="Senha" type="password" name="password" control={control} />
-          <Button type="submit"  disabled={Object.keys(errors).length > 0} >Cadastrar</Button>
+          <Button Loading={show} type="submit"  disabled={Object.keys(errors).length > 0} >Cadastrar</Button>
         </Form>
         <Text>Já possui uma conta? <Link href="/login">Faça seu Login</Link></Text>
         </Image>

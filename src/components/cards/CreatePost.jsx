@@ -9,6 +9,7 @@ import Subtitle from '../typography/Subtitle'
 import ControlledTextArea from "../inputs/ControlledTextArea";
 import Button from '../inputs/Button'
 import { useSWRConfig } from "swr";
+import { useState } from "react";
 
 const  PostContainer = styled.div`
     background-color: ${props => props.theme.white};
@@ -44,6 +45,7 @@ const BottomText = styled.p`
 `
 
 function CreatePost({ username }) {
+    const [show, setShow] = useState(false)
     const { mutate } = useSWRConfig()
     const { control, handleSubmit, formState: { isValid }, reset } = useForm({
         resolver: joiResolver(createPostSchema),
@@ -53,6 +55,14 @@ function CreatePost({ username }) {
   const onSubmit = async (data) => {
     const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/post`, data)
     if (response.status === 201) {
+        setShow(true)
+        try {
+            if (response.status === 201) {
+                setTimeout(() => {setShow(false)}, 1000)
+            }
+        } catch (err) {
+            setShow(true)
+        }
       reset()
       mutate(`${process.env.NEXT_PUBLIC_API_URL}/api/post`)
     }
@@ -67,7 +77,7 @@ function CreatePost({ username }) {
                 </TextContainer>
                 <BottomContainer>
                     <BottomText>A sua mensagem será pública.</BottomText>
-                    <Button disabled={!isValid}>Postar mensagem</Button>
+                    <Button Loading={show} disabled={!isValid}>Postar mensagem</Button>
                 </BottomContainer>
             </form>
         </PostContainer>
