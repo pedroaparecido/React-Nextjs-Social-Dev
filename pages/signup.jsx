@@ -50,6 +50,8 @@ function Signup () {
           type: 'duplicated'
         })
       }
+    } finally {
+      setShow(false)
     }
   }
 

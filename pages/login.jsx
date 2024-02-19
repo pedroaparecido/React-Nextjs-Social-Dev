@@ -46,6 +46,7 @@ function Login () {
         router.push('/')
       }}, 5000)
     } catch ({ response }) {
+      setShow(false)
       if (response.data === 'incorrect password') {
         setError('password', {
           message: 'A senha está incorreta.'
@@ -56,6 +57,8 @@ function Login () {
           message: 'Usuário ou email não encontrado.'
         })
       }
+    } finally {
+      setShow(false)
     }
   }
 
